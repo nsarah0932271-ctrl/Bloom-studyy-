@@ -13,7 +13,6 @@
     <style>
         body { font-family: 'Poppins', sans-serif; }
         
-        /* Thèmes de couleurs et modes */
         :root {
             --primary: #ec4899;
             --primary-hover: #db2777;
@@ -62,16 +61,15 @@
 </head>
 <body class="transition-colors duration-300">
 
-    <!-- ÉCRAN D'AUTHENTIFICATION (Affiché si non connecté) -->
+    <!-- ÉCRAN D'AUTHENTIFICATION -->
     <div id="authOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
         <div class="custom-card max-w-md w-full p-8 rounded-2xl shadow-2xl border border-pink-100 dark:border-gray-700">
             <div class="text-center mb-6">
                 <span class="text-4xl">💖</span>
                 <h1 class="text-2xl font-bold mt-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">N_Sarah Prep Hub</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Espace Prépa EPGE - Connexion requise</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" id="authSubtitle">Crée ton compte ou connecte-toi pour accéder à l'EPGE</p>
             </div>
 
-            <!-- Formulaire de Connexion / Inscription -->
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-1">Ton Pseudo / Nom d'utilisateur</label>
@@ -83,20 +81,19 @@
                 </div>
                 
                 <div class="flex gap-3 pt-2">
-                    <button onclick="handleLogin()" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-xl transition shadow-md">
-                        Se connecter
-                    </button>
-                    <button onclick="handleRegister()" class="flex-1 bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 font-semibold py-3 rounded-xl transition">
+                    <button onclick="handleRegister()" class="flex-1 bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 font-semibold py-3 rounded-xl transition text-sm">
                         Créer un compte
+                    </button>
+                    <button onclick="handleLogin()" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-xl transition shadow-md text-sm">
+                        Se connecter
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SITE PRINCIPAL (Masqué tant que non connecté) -->
+    <!-- SITE PRINCIPAL -->
     <div id="mainAppContainer" class="hidden">
-        <!-- BARRE DE CONFIGURATION ET UTILISATEUR -->
         <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm sticky top-0 z-40 px-4 py-3 border-b border-pink-100 dark:border-gray-700">
             <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
                 <div class="flex items-center space-x-3">
@@ -104,14 +101,12 @@
                     <h1 class="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">N_Sarah Prep Hub (EPGE)</h1>
                 </div>
 
-                <!-- Paramètres & Compte connecté -->
                 <div class="flex items-center flex-wrap gap-3">
                     <div class="flex items-center space-x-2 bg-pink-50 dark:bg-gray-700 px-3 py-1.5 rounded-full">
                         <span class="text-sm">👤 <strong id="headerUsername" class="text-pink-600 dark:text-pink-400">N_Sarah</strong></span>
-                        <button onclick="logout()" class="text-xs text-gray-500 hover:text-red-500 ml-2 font-medium" title="Se déconnecter">[Déconnexion]</button>
+                        <button onclick="logout()" class="text-xs text-gray-500 hover:text-red-500 ml-2 font-medium">[Déconnexion]</button>
                     </div>
 
-                    <!-- Sélecteur de Thème Couleur -->
                     <select id="colorThemeSelect" onchange="changeColorTheme(this.value)" class="text-xs px-2 py-1.5 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                         <option value="girly-pink">🌸 Rose Girly</option>
                         <option value="lavender">💜 Lavande Douce</option>
@@ -119,18 +114,14 @@
                         <option value="mint">🌿 Menthe Fraîche</option>
                     </select>
 
-                    <!-- Sélecteur Mode Clair / Sombre -->
-                    <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-sm" title="Basculer Mode Clair/Sombre">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-sm">
                         🌙/☀️
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- CONTENU PRINCIPAL -->
         <main class="max-w-6xl mx-auto p-4 md:p-6">
-
-            <!-- VUE ACCUEIL / TABLEAU DE BORD -->
             <div id="dashboardView" class="space-y-6">
                 <div class="custom-card p-6 rounded-2xl shadow-lg border border-pink-100 dark:border-gray-700">
                     <h2 class="text-2xl font-bold mb-2">Bienvenue sur ton espace, <span class="text-pink-500" id="currentUserName">N_Sarah</span> ! ✨</h2>
@@ -139,12 +130,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="p-4 rounded-xl bg-pink-50 dark:bg-gray-700/50 border border-pink-100 dark:border-gray-600">
                             <h3 class="font-semibold text-pink-600 dark:text-pink-400">📊 Progression globale</h3>
-                            <p class="text-2xl font-bold mt-1" id="statAvgScore">-- / 20</p>
+                            <p class="text-2xl font-bold mt-1">15.1 / 20</p>
                             <span class="text-xs text-gray-500">Moyenne générale</span>
                         </div>
                         <div class="p-4 rounded-xl bg-purple-50 dark:bg-gray-700/50 border border-purple-100 dark:border-gray-600">
                             <h3 class="font-semibold text-purple-600 dark:text-purple-400">📝 Tests complétés</h3>
-                            <p class="text-2xl font-bold mt-1" id="statTestsCount">0</p>
+                            <p class="text-2xl font-bold mt-1">6</p>
                             <span class="text-xs text-gray-500">Sessions enregistrées</span>
                         </div>
                         <div class="p-4 rounded-xl bg-amber-50 dark:bg-gray-700/50 border border-amber-100 dark:border-gray-600">
@@ -155,7 +146,6 @@
                     </div>
                 </div>
 
-                <!-- CONFIGURATEUR DE TEST / COURS -->
                 <div class="custom-card p-6 rounded-2xl shadow-lg border border-pink-100 dark:border-gray-700">
                     <h3 class="text-xl font-bold mb-4">🎯 Lancer une session d'apprentissage</h3>
                     
@@ -177,5 +167,226 @@
 
                         <div>
                             <label class="block text-sm font-medium mb-1">Niveau / Filière</label>
-                            <select id="levelSelect" class
-                            
+                            <select id="levelSelect" class="w-full p-2.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700">
+                                <option value="ECG1">EPGE - 1ère année (ECG1)</option>
+                                <option value="ECG2">EPGE - 2nde année (ECG2)</option>
+                                <option value="Autre Prépa">Autre filière prépa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Thème / Leçon spécifique (ex: Périodicité, IS-LM...)</label>
+                            <input type="text" id="lessonInput" placeholder="Ex: La périodicité, Algèbre linéaire..." class="w-full p-2.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Nombre de questions (<span id="numQVal">10</span>)</label>
+                            <input type="range" id="numQuestionsRange" min="5" max="30" value="10" oninput="document.getElementById('numQVal').innerText=this.value" class="w-full accent-pink-500 mt-3">
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button onclick="startTest()" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-xl transition shadow-md">
+                            🚀 Lancer le QCM (Chrono 30 min)
+                        </button>
+                        <button onclick="viewTheory()" class="px-6 bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 font-semibold py-3 rounded-xl transition">
+                            📖 Fiche de Cours & Résumé
+                        </button>
+                    </div>
+                </div>
+
+                <div class="custom-card p-6 rounded-2xl shadow-lg border border-pink-100 dark:border-gray-700">
+                    <h3 class="text-xl font-bold mb-4">📈 Évolution de ta progression</h3>
+                    <div class="h-64">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="testView" class="hidden space-y-6">
+                <div class="custom-card p-6 rounded-2xl shadow-lg border border-pink-100 dark:border-gray-700">
+                    <div class="flex justify-between items-center mb-6 border-b pb-4 dark:border-gray-700">
+                        <div>
+                            <span id="testSubjectBadge" class="px-3 py-1 bg-pink-100 text-pink-700 text-xs font-semibold rounded-full">Maths</span>
+                            <h2 class="text-xl font-bold mt-2" id="testTitle">Question 1 sur 10</h2>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-500 block">Temps restant</span>
+                            <span id="timerDisplay" class="text-xl font-bold text-pink-500">30:00</span>
+                        </div>
+                    </div>
+
+                    <div id="questionContainer" class="space-y-4 mb-6"></div>
+
+                    <div class="flex justify-end">
+                        <button id="nextQuestionBtn" onclick="nextQuestion()" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2.5 rounded-xl font-semibold transition" disabled>
+                            Valider & Continuer ➔
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultView" class="hidden space-y-6">
+                <div class="custom-card p-6 rounded-2xl shadow-lg border border-pink-100 dark:border-gray-700 text-center">
+                    <h2 class="text-3xl font-bold mb-2">🎉 Test Terminé !</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Voici ton bilan personnalisé pour cette session.</p>
+                    
+                    <div class="inline-block p-6 rounded-2xl bg-pink-50 dark:bg-gray-700/50 border border-pink-100 mb-6">
+                        <span class="text-sm text-gray-500 block">Note finale</span>
+                        <span class="text-4xl font-extrabold text-pink-600 dark:text-pink-400" id="finalScoreDisplay">14.5 / 20</span>
+                    </div>
+
+                    <div class="text-left space-y-4 mb-6">
+                        <h3 class="font-bold text-lg">💡 Corrections & Tips personnalisés :</h3>
+                        <div id="correctionContainer" class="space-y-3"></div>
+                    </div>
+
+                    <button onclick="returnHome()" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-xl font-semibold transition">
+                        🏠 Revenir au Tableau de Bord
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let currentTheme = "girly-pink";
+        let currentMode = "light";
+        let currentTest = { subject: "", lesson: "", questions: [], currentIndex: 0, userAnswers: [], score: 0 };
+        let timerInterval = null;
+        let timeLeft = 1800;
+        let progressChartInstance = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('epge_current_user');
+            if(savedUser) {
+                currentUser = savedUser;
+                initUserSession();
+            }
+        });
+
+        function handleRegister() {
+            const username = document.getElementById('authUsername').value.trim();
+            const pass = document.getElementById('authPassword').value.trim();
+            
+            if(!username || !pass) {
+                alert("Veuillez entrer un pseudo et un mot de passe valide.");
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('epge_users') || '{}');
+            if(users[username]) {
+                alert("Ce compte existe déjà. Veuillez cliquer sur 'Se connecter' !");
+                return;
+            }
+
+            users[username] = pass;
+            localStorage.setItem('epge_users', JSON.stringify(users));
+            
+            currentUser = username;
+            localStorage.setItem('epge_current_user', currentUser);
+            initUserSession();
+        }
+
+        function handleLogin() {
+            const username = document.getElementById('authUsername').value.trim();
+            const pass = document.getElementById('authPassword').value.trim();
+
+            if(!username || !pass) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('epge_users') || '{}');
+            
+            if(users[username]) {
+                if(users[username] === pass) {
+                    currentUser = username;
+                    localStorage.setItem('epge_current_user', currentUser);
+                    initUserSession();
+                } else {
+                    alert("Mot de passe incorrect.");
+                }
+            } else {
+                // Si l'utilisateur n'a pas cliqué sur créer un compte mais tape ses infos, on l'inscrit automatiquement pour lui faciliter la vie
+                users[username] = pass;
+                localStorage.setItem('epge_users', JSON.stringify(users));
+                currentUser = username;
+                localStorage.setItem('epge_current_user', currentUser);
+                initUserSession();
+            }
+        }
+
+        function initUserSession() {
+            document.getElementById('authOverlay').classList.add('hidden');
+            document.getElementById('mainAppContainer').classList.remove('hidden');
+            document.getElementById('headerUsername').innerText = currentUser;
+            document.getElementById('currentUserName').innerText = currentUser;
+            loadUserStats();
+        }
+
+        function logout() {
+            localStorage.removeItem('epge_current_user');
+            location.reload();
+        }
+
+        function changeColorTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        function toggleDarkMode() {
+            currentMode = currentMode === "light" ? "dark" : "light";
+            document.documentElement.setAttribute('data-mode', currentMode);
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            if(progressChartInstance) progressChartInstance.destroy();
+            
+            progressChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Dernier test'],
+                    datasets: [{
+                        label: 'Notes (/20)',
+                        data: [12, 14, 13.5, 16, 17],
+                        borderColor: '#ec4899',
+                        backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 20 }
+                    }
+                }
+            });
+        }
+
+        function loadUserStats() {
+            initChart();
+        }
+
+        function startTest() {
+            const subject = document.getElementById("subjectSelect").value;
+            const lesson = document.getElementById("lessonInput").value || "Généralités";
+            const numQ = parseInt(document.getElementById("numQuestionsRange").value);
+            
+            currentTest = {
+                subject,
+                lesson,
+                questions: generateQuestions(subject, lesson, numQ),
+                currentIndex: 0,
+                userAnswers: [],
+                score: 0
+            };
+
+            document.getElementById("dashboardView").classList.add("hidden");
+            do
